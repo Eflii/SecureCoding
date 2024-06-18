@@ -28,9 +28,8 @@ const createTodoRouter = (TodoDatabase) => {
 
   router.post("/todos", async (req, res) => {
     try {
-      console.log("je get les todos")
       const todoJson = req.body.todoElement;
-      const todoElem = Todo.deserialize(todoJson);
+      const todoElem = await TodoDatabase.deserialize(todoJson);
       todoElem.setTodoId(uuid.v4());
       const todo = await Todo.addTodo(todoElem);
       res.json(todo);
